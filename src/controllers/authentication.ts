@@ -10,12 +10,14 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     // checks if any fields are missing
     if (!email || !password || !username) {
+      console.log("400 bad request - missing data!");
       return res.sendStatus(400);
     }
 
     // checks if user exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
+      console.log("400 bad request - user already exists!");
       return res.sendStatus(400);
     }
 
@@ -28,7 +30,7 @@ export const register = async (req: express.Request, res: express.Response) => {
         password: authentication(salt, password),
       },
     });
-
+    console.log("200 - user registered!");
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
