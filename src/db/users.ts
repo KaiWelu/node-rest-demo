@@ -36,8 +36,10 @@ export const createUser = (values: Record<string, any>) =>
   new UserModel(values).save().then((user) => user.toObject);
 
 // deletes user by given id, mongoose gives everything an _id for convinience
-export const deleteUserById = (id: string) => {
-  UserModel.findOneAndDelete({ _id: id });
+export const deleteUserById = async (id: string) => {
+  // this is how you write an async/await function for this application
+  const deleteUser = await UserModel.findOneAndDelete({ _id: id });
+  return deleteUser;
 };
 
 //
