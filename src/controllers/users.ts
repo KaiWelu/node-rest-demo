@@ -27,9 +27,6 @@ export const deleteUser = async (
 
     const deletedUser = await deleteUserById(id);
 
-    if (!deleteUser) {
-      return res.sendStatus(400);
-    }
     console.log("200 - deletion successful!");
 
     return res.json(deletedUser);
