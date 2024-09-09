@@ -1,7 +1,31 @@
 // this is the controller for users
 import express from "express";
 
-import { deleteUserById, getUsers } from "../db/users";
+import { deleteUserById, getUserById, getUsers } from "../db/users";
+
+export const updateUser = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { username } = req.body;
+    const { id } = req.params;
+
+    if (!username) {
+      console.log("400 - no username!");
+      return res.sendStatus(400);
+    }
+
+    const user = await getUserById(id);
+    user.username = username;
+    await user.save();
+
+    console.log("200 - username updated!");
+    return res.status(200).json(user).end();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getAllUsers = async (
   req: express.Request,
