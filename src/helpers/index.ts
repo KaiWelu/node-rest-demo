@@ -1,8 +1,9 @@
 import crypto from "crypto";
-const SECRET = "NODE-REST-API";
+import "dotenv/config";
+const SECRET = process.env.SECRET;
+console.log(SECRET);
 
-// this is not safe because i don't understand everything, also the SECRET shouldnt be here
-// but it's fine for demo purposes
+// this is the hashing process
 
 export const random = () => crypto.randomBytes(128).toString("base64");
 export const authentication = (salt: string, password: string) => {
